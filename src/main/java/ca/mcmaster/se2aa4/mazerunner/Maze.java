@@ -114,13 +114,15 @@ public class Maze {
     }
 
     // check if given path is valid
-    public void validPath(String givenPath) {
+    public boolean validPath(String givenPath) {
         PathChecker pathChecker = new PathChecker(givenPath, endLeft, endRight);
         // check if the path works for at least one of the ends
         if (pathChecker.isValidPath()) {
             System.out.println("The path: " + givenPath + " is a valid path");
+            return true;
         } else {
             System.out.println("The path: " + givenPath + " is NOT a valid path");
+            return false;
         }
 
     }

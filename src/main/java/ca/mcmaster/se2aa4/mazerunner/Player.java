@@ -53,6 +53,10 @@ public abstract class Player implements MazeSolver {
         this.direction = direction;
     }
 
+    public ArrayList<Character> getPath() {
+        return path;
+    }
+
     // Methods
 
     public void moveForward() {
