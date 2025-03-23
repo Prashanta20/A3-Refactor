@@ -15,6 +15,7 @@ public class RHRPlayer extends Player {
         super(position_x, position_y);
     }
 
+    @Override
     public void exploreMaze(HashMap<Direction, Tile> options) {
         // 3 conditions to move
         // 1. Right hand wall, Forward pass: move forward

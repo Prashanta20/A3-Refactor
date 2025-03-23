@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import ca.mcmaster.se2aa4.mazerunner.Maze.MazeBuilder;
+
 import org.apache.commons.cli.*;
 
 public class Main {
@@ -50,7 +52,10 @@ public class Main {
             Player player = new RHRPlayer(); // can create different players to add more advanced algorthims
 
             // Create Maze object
-            maze = new Maze(grid, player);
+            maze = new MazeBuilder()
+                    .setGrid(grid)
+                    .setPlayer(player)
+                    .build();
 
             // ***** DISPLAY MAZE OPTIONAL ***** //
             // maze.displayMaze(); // Display maze

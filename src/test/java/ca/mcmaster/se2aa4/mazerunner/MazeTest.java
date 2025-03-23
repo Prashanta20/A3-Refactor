@@ -1,6 +1,9 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 import org.junit.jupiter.api.Test;
+
+import ca.mcmaster.se2aa4.mazerunner.Maze.MazeBuilder;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MazeTest {
@@ -12,7 +15,9 @@ class MazeTest {
                 { new Tile(false), new Tile(true), new Tile(false) }
         };
 
-        Maze maze = new Maze(grid);
+        Maze maze = new MazeBuilder()
+                .setGrid(grid)
+                .build();
         Player player = maze.getPlayer();
 
         assertEquals(0, player.getY()); // Check start row
@@ -26,7 +31,9 @@ class MazeTest {
                 { new Tile(false), new Tile(false), new Tile(false) },
                 { new Tile(false), new Tile(true), new Tile(false) }
         };
-        Maze maze = new Maze(grid);
+        Maze maze = new MazeBuilder()
+                .setGrid(grid)
+                .build();
         assertTrue(maze.isEnd(0, 0));
     }
 
@@ -37,7 +44,9 @@ class MazeTest {
                 { new Tile(false), new Tile(false), new Tile(false) },
                 { new Tile(false), new Tile(true), new Tile(false) }
         };
-        Maze maze = new Maze(grid);
+        Maze maze = new MazeBuilder()
+                .setGrid(grid)
+                .build();
         assertTrue(maze.isEnd(0, 2));
     }
 
@@ -48,57 +57,73 @@ class MazeTest {
                 { new Tile(false), new Tile(false), new Tile(false) },
                 { new Tile(false), new Tile(true), new Tile(false) }
         };
-        Maze maze = new Maze(grid);
+        Maze maze = new MazeBuilder()
+                .setGrid(grid)
+                .build();
         assertFalse(maze.isEnd(1, 1));
     }
 
     @Test
     void testValidPathWithCorrectSequence() {
-        Maze maze = new Maze(new Tile[][] {
-                { new Tile(false), new Tile(false), new Tile(false) },
+        Tile[][] grid = { { new Tile(false), new Tile(false), new Tile(false) },
                 { new Tile(true), new Tile(false), new Tile(true) },
-                { new Tile(true), new Tile(true), new Tile(true) }
-        });
+                { new Tile(true), new Tile(true), new Tile(true) } };
+        Maze maze = new MazeBuilder()
+                .setGrid(grid)
+                .build();
         assertTrue(maze.validPath("FF")); // Assuming this path is valid
     }
 
     @Test
     void testValidPathWithIncorrectSequence() {
-        Maze maze = new Maze(new Tile[][] {
-                { new Tile(false), new Tile(true), new Tile(false) },
+        Tile[][] grid = { { new Tile(false), new Tile(true), new Tile(false) },
                 { new Tile(false), new Tile(false), new Tile(false) },
-                { new Tile(false), new Tile(true), new Tile(false) }
-        });
+                { new Tile(false), new Tile(true), new Tile(false) } };
+
+        Maze maze = new MazeBuilder()
+                .setGrid(grid)
+                .build();
+
         assertFalse(maze.validPath("LLLL")); // Assuming this path is invalid
     }
 
     @Test
     void testValidPathWithEmptyPath() {
-        Maze maze = new Maze(new Tile[][] {
-                { new Tile(false), new Tile(true), new Tile(false) },
+        Tile[][] grid = { { new Tile(false), new Tile(true), new Tile(false) },
                 { new Tile(false), new Tile(false), new Tile(false) },
-                { new Tile(false), new Tile(true), new Tile(false) }
-        });
+                { new Tile(false), new Tile(true), new Tile(false) } };
+
+        Maze maze = new MazeBuilder()
+                .setGrid(grid)
+                .build();
+
         assertFalse(maze.validPath("")); // Empty path should be invalid
     }
 
     @Test
     void testValidPathWithSingleStep() {
-        Maze maze = new Maze(new Tile[][] {
-                { new Tile(false), new Tile(true), new Tile(false) },
+        Tile[][] grid = { { new Tile(false), new Tile(true), new Tile(false) },
                 { new Tile(false), new Tile(false), new Tile(false) },
-                { new Tile(false), new Tile(true), new Tile(false) }
-        });
+                { new Tile(false), new Tile(true), new Tile(false) } };
+
+        Maze maze = new MazeBuilder()
+                .setGrid(grid)
+                .build();
+
         assertFalse(maze.validPath("F")); // Assuming single forward move is not enough
     }
 
     @Test
     void testValidPathWithWallCollision() {
-        Maze maze = new Maze(new Tile[][] {
-                { new Tile(false), new Tile(true), new Tile(false) },
+
+        Tile[][] grid = { { new Tile(false), new Tile(true), new Tile(false) },
                 { new Tile(false), new Tile(false), new Tile(false) },
-                { new Tile(false), new Tile(true), new Tile(false) }
-        });
+                { new Tile(false), new Tile(true), new Tile(false) } };
+
+        Maze maze = new MazeBuilder()
+                .setGrid(grid)
+                .build();
+
         assertFalse(maze.validPath("FRFLLF")); // Path colliding with wall should be invalid
     }
 }

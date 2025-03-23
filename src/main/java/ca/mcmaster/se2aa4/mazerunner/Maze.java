@@ -14,30 +14,20 @@ public class Maze {
 
     private Player mazePlayer;
 
-    // Contructor
-    public Maze(Tile[][] grid, Player mazePlayer) {
-        this.grid = grid; // set grid
+    // Constructor is now private to enforce the use of Builder
+    private Maze(MazeBuilder builder) {
+        this.grid = builder.grid;
         this.endLeft = new int[2];
         this.endRight = new int[2];
 
-        // Find left and right endpoints
-        findEndLeft(); // Make sure both ends are found
+        findEndLeft();
         findEndRight();
-        this.mazePlayer = mazePlayer; // set Player
-        // set postion of player
-        mazePlayer.setX(endLeft[1]);
-        mazePlayer.setY(endLeft[0]);
-    }
 
-    public Maze(Tile[][] grid) {
-        this.grid = grid; // set grid
-        this.endLeft = new int[2];
-        this.endRight = new int[2];
+        this.mazePlayer = (builder.mazePlayer != null) ? builder.mazePlayer : new RHRPlayer(endLeft[1], endLeft[0]);
 
-        // Find left and right endpoints
-        findEndLeft(); // Make sure both ends are found
-        findEndRight();
-        mazePlayer = new RHRPlayer(endLeft[1], endLeft[0]); // set player if one is not passed
+        // Set the player's position to the left endpoint
+        this.mazePlayer.setX(endLeft[1]);
+        this.mazePlayer.setY(endLeft[0]);
     }
 
     // Getters and Setters
@@ -153,5 +143,28 @@ public class Maze {
 
         return options; // Only returns valid tiles
 
+    }
+
+    // Builder Class
+    public static class MazeBuilder {
+        private Tile[][] grid;
+        private Player mazePlayer;
+
+        public MazeBuilder setGrid(Tile[][] grid) {
+            this.grid = grid;
+            return this;
+        }
+
+        public MazeBuilder setPlayer(Player player) {
+            this.mazePlayer = player;
+            return this;
+        }
+
+        public Maze build() {
+            if (grid == null) {
+                throw new IllegalStateException("Grid must be set before building the Maze");
+            }
+            return new Maze(this);
+        }
     }
 }

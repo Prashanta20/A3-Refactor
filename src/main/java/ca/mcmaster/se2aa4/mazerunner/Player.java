@@ -29,37 +29,37 @@ public abstract class Player implements MazeSolver {
     }
 
     // Getters and Setters
-    public int getX() {
+    public final int getX() {
         return position_x;
     }
 
-    public void setX(int position_x) {
+    public final void setX(int position_x) {
         this.position_x = position_x;
     }
 
-    public int getY() {
+    public final int getY() {
         return position_y;
     }
 
-    public void setY(int position_y) {
+    public final void setY(int position_y) {
         this.position_y = position_y;
     }
 
-    public Direction getDirection() {
+    public final Direction getDirection() {
         return direction;
     }
 
-    public void setDirection(Direction direction) {
+    public final void setDirection(Direction direction) {
         this.direction = direction;
     }
 
-    public ArrayList<Character> getPath() {
+    public final ArrayList<Character> getPath() {
         return path;
     }
 
     // Methods
 
-    public void moveForward() {
+    public final void moveForward() {
         if (direction == Direction.NORTH) {
             // Facing North
             position_y--; // increase y by one
@@ -78,7 +78,7 @@ public abstract class Player implements MazeSolver {
         path.add('F');
     }
 
-    public void turnRight() {
+    public final void turnRight() {
         if (direction == Direction.NORTH) {
             // Facing North
             direction = Direction.EAST; // turn to EAST
@@ -97,7 +97,7 @@ public abstract class Player implements MazeSolver {
         path.add('R');
     }
 
-    public void turnLeft() {
+    public final void turnLeft() {
         if (direction == Direction.NORTH) {
             // Facing North
             direction = Direction.WEST; // turn to WEST
@@ -116,7 +116,7 @@ public abstract class Player implements MazeSolver {
         path.add('L');
     }
 
-    public void factorizedPath() {
+    public final void factorizedPath() {
         if (path.isEmpty()) {
             return; // no path
         }
@@ -153,7 +153,7 @@ public abstract class Player implements MazeSolver {
     // Explore maze different based on type of player
     public abstract void exploreMaze(HashMap<Direction, Tile> options);
 
-    protected Tile forwardTile(HashMap<Direction, Tile> options) {
+    protected final Tile forwardTile(HashMap<Direction, Tile> options) {
         // return the forward tile for the player
         if (options.containsKey(direction)) {
             return options.get(direction);
@@ -162,7 +162,7 @@ public abstract class Player implements MazeSolver {
         }
     }
 
-    protected Tile rightTile(HashMap<Direction, Tile> options) {
+    protected final Tile rightTile(HashMap<Direction, Tile> options) {
         Tile rightTile = new Tile();
         if (direction == Direction.NORTH) {
             // Facing North
