@@ -3,13 +3,6 @@ package ca.mcmaster.se2aa4.mazerunner;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-enum Direction {
-    NORTH,
-    EAST,
-    SOUTH,
-    WEST
-}
-
 public abstract class Player implements MazeSolver {
     // Attributes
     protected int position_x;

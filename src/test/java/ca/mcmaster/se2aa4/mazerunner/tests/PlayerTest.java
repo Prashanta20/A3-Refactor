@@ -1,6 +1,11 @@
-package ca.mcmaster.se2aa4.mazerunner;
+package ca.mcmaster.se2aa4.mazerunner.tests;
 
 import org.junit.jupiter.api.Test;
+
+import ca.mcmaster.se2aa4.mazerunner.Direction;
+import ca.mcmaster.se2aa4.mazerunner.RHRPlayer;
+import ca.mcmaster.se2aa4.mazerunner.Tile;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;

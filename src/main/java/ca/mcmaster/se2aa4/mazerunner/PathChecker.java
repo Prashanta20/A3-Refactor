@@ -71,6 +71,7 @@ public class PathChecker {
                 // not a valid move
                 return false;
             }
+
         }
 
         // after the last moves, check if player is at left WEST end
